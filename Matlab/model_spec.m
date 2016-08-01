@@ -13,7 +13,7 @@
 %
 %
 %
-% k2m               characteristic value to mean; char/mean
+% k2m               characteristic value to mean; mean/char; mean = k2m*char
 % bias              (mean of experimental results/observations)/(mean of prob model)
 %                   > 1 typically for resistance related variables
 %                   mean of prob model is obtained from the characteristic value
@@ -53,10 +53,10 @@ lead_action_label   = {'snow', 'imposed', 'wind'};
 % apply for each load ratio and lead action!
                       %LS1      LS2     LS3
 R_cov               = [0.065,    0.07,   0.07];
-R_bias              = [1.00,    1.00,   1.00].^(-1);
+R_bias              = [1.00,    1.00,   1.00];
 
 K_R_mean            = [1.00,    1.00,   1.00];
-K_R_k2m             = [1.075,   1.00,   1.15].^(-1);
+K_R_k2m             = [1.075,   1.00,   1.15];
 K_R_cov             = [0.075,   0.07,   0.10];
                       
                       %for all actions
@@ -66,7 +66,7 @@ K_E_cov             = 0.10;
 
                       %snow     %imp    %wind
 C_Q_mean            = [1.00,    1.00,   1.00];
-C_Q_k2m             = [1.00,    1.00,   1.25];
+C_Q_k2m             = [1.00,    1.00,   0.80];
 C_Q_cov             = [0.15,    0.10,   0.30];
 
 % load ratio
@@ -197,7 +197,7 @@ I_1.cov             = 0.20;
 % wind action
 W_1.mean            = 1.00;
 W_1.bias            = 1.00;
-W_1.cov             = 0.40;
+W_1.cov             = 0.60;
 
 % permanent action
 G.cov               = 0.08;
