@@ -13,8 +13,8 @@ __Calibration:__
 
 __Code(s):__ Matlab
 
-<img src=figures/compare_distinct_gamma_Q/sym_constant_single_original.png width="500")>
-<img src=figures/compare_distinct_gamma_Q/sym_constant_distinct_original.png width="500")>
+<img src=figures/compare_distinct_gamma_Q/sym_constant_single_original.png width="400")>
+<img src=figures/compare_distinct_gamma_Q/sym_constant_distinct_original.png width="400")>
 
 __Note(s):__ 
 * The codes are not cleaned organized in any serious way (yet?). If you have troubles to follow it, contact me.
