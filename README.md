@@ -1,14 +1,20 @@
-Reliability-based code calibration for steel structures considering ultimate limit states - Belarus, Eurocode
+Reliability-based code calibration
 ==============
 
 In progress research codes... for collaborative coding, open and reproducible research.
 
 After the work has been completed the code will be organized(?) and accompanied with a report or paper.
 
+__Calibration:__
+* Eurocode
+* steel structures
+* ultimate limit states
+* Belarus
+
 __Code(s):__ Matlab
 
-![alt text](figures\compare_distinct_gamma_Q\sym_constant_single_original.png)
-![alt text](figures\compare_distinct_gamma_Q\sym_constant_distinct_original.png)
+![alt text](figures/compare_distinct_gamma_Q/sym_constant_single_original.png)
+![alt text](figures/compare_distinct_gamma_Q/sym_constant_distinct_original.png)
 
 __Note(s):__ 
 * The codes are not cleaned organized in any serious way (yet?). If you have troubles to follow it, contact me.
