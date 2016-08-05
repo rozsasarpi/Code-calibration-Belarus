@@ -27,6 +27,8 @@ Results1    = select_Results(Model, Results, 0); % WARNING!
 % khi = Model.khi;
 % Rk1 = 
 
+goodness_measure(Model, Results1)
+
 % PLOT
 plot_reli_vs_loadratio(Model, Results1, 'limit_state')
 
@@ -50,24 +52,25 @@ load(['results\obj_fun.',obj_fun_type,...
     '_gamma_Q_diff.',gamma_Q_diff,...
     '_load_combi.simple_t_ref.50_beta_t.2.3_limit_state.1_lead_action.1  2  3.mat'])
 
-Results    = filter_Results(Results);
+Results     = filter_Results(Results);
 Results2    = select_Results(Model, Results, 0); % WARNING!
 
+goodness_measure(Model, Results2)
+
+% PLOT
 plot_reli_vs_loadratio(Model, Results2, 'limit_state')
 
 hf2         = gcf;
 ha2         = gca;
 ylim2       = get(ha2, 'Ylim');
-ylimm       = [min(ylim1(1), ylim2(1)), max(ylim1(2), ylim2(2))];
+% ylimm       = [min(ylim1(1), ylim2(1)), max(ylim1(2), ylim2(2))];
+ylimm       = [1.97,    2.74];
 set(ha1,'Ylim',ylimm)
 set(ha2,'Ylim',ylimm)
 
 % Objective function value
 tx = min(xlim) + 0.05*diff(xlim);
 ty = max(ylim) - 0.10*diff(ylim);
-
-% set(ha1,'Ylim',[1.2    4.1])
-% set(ha2,'Ylim',[1.2    4.1])
 
 figure(hf1)
 text(tx, ty, ['$O_\mathrm{',obj_fun_type,'}=', sprintf('%4.2f', Results1.obj_fun_val), '$'], 'Interpreter', 'LaTeX')
@@ -77,7 +80,15 @@ text(tx, ty, ['$O_\mathrm{',obj_fun_type,'}=', sprintf('%4.2f', Results2.obj_fun
 %--------------------------------------------------------------------------
 % COMPARE required characteristic resistances!
 %--------------------------------------------------------------------------
-plot_rRk_vs_loadratio(Model, Results1, Results2)
+Options.title_text = 'single vs. distinct; constant; asym';
+Options.model1     = 'single';
+Options.model2     = 'distinct';
 
-% ylim([-0.01    0.26])
+% Options.title_text = 'single; constant; sym vs. asym';
+% Options.model1     = 'sym';
+% Options.model2     = 'asym';
+
+plot_rRk_vs_loadratio(Model, Results1, Results2, Options)
+
+% ylim([-0.005    0.025])
 

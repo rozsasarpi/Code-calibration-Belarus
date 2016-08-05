@@ -23,6 +23,9 @@ load(['results\obj_fun.',obj_fun_type,...
 
 Results    = filter_Results(Results);
 Results1    = select_Results(Model, Results, 0);  % WARNING!
+
+goodness_measure(Model, Results1)
+
 plot_reli_vs_loadratio(Model, Results1)
 
 ha1     = gca;
@@ -45,12 +48,16 @@ load(['results\obj_fun.',obj_fun_type,...
 
 Results    = filter_Results(Results);
 Results2    = select_Results(Model, Results, 0);  % WARNING!
+
+goodness_measure(Model, Results2)
+
 plot_reli_vs_loadratio(Model, Results2)
 
 hf2     = gcf;
 ha2     = gca;
 ylim2   = get(ha2, 'Ylim');
-ylimm   = [min(ylim1(1), ylim2(1)), max(ylim1(2), ylim2(2))];
+% ylimm   = [min(ylim1(1), ylim2(1)), max(ylim1(2), ylim2(2))];
+ylimm   = [1.97,    2.74];
 set(ha1,'Ylim',ylimm)
 set(ha2,'Ylim',ylimm)
 
@@ -66,4 +73,7 @@ text(tx, ty, ['$O_\mathrm{',obj_fun_type,'}=', sprintf('%4.2f', Results2.obj_fun
 %--------------------------------------------------------------------------
 % COMPARE required characteristic resistances!
 %--------------------------------------------------------------------------
-plot_rRk_vs_loadratio(Model, Results1, Results2)
+Options.title_text = 'single; constant vs. linear; sym';
+Options.model1     = 'constant';
+Options.model2     = 'linear';
+plot_rRk_vs_loadratio(Model, Results1, Results2, Options)

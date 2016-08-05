@@ -28,6 +28,17 @@ lead_action         = lead_action(lead_action_idx);
 limit_state         = Model.limit_state_label;
 limit_state         = limit_state(limit_state_idx);
 
+gamma_Q_diff        = Model.gamma_Q_diff;
+if strcmp(gamma_Q_diff, 'no')
+    gamma_Q_diff = 'single';
+else
+    gamma_Q_diff = 'distinct';
+end
+gamma_Q_type        = Model.gamma_Q_type;
+obj_fun_type        = Model.obj_fun_type;
+
+title_text          = [gamma_Q_diff, '; ', gamma_Q_type, '; ', obj_fun_type];
+
 min_beta            = min(min(min(beta)));
 max_beta            = max(max(max(beta)));
 % maby it should be moved to separate functions, especially if more options are added
@@ -49,8 +60,9 @@ switch lower(group_by)
             ylabel('$\beta$', 'Interpreter', 'LaTeX')
             xlabel('$\chi = C_\mathrm{k} \cdot Q_\mathrm{k}/(G_\mathrm{k} + C_\mathrm{k} \cdot Q_\mathrm{k})$', 'Interpreter', 'LaTeX')
             
-            %   ht = title(['leading action:', num2str(lead_action_idx(ii))]);
-            ht = title(['limit state: ', limit_state{ii}]);
+            % ht = title(['leading action:', num2str(lead_action_idx(ii))]);
+            % ht = title(['leading action: ', lead_action{ii}]);
+            ht = title(title_text);
             ht.Interpreter = 'LaTeX';
             if ii == mm
                 %     legend_label = cellstr(num2str(Model.limit_state_idx(:)));
@@ -85,8 +97,9 @@ switch lower(group_by)
             ylabel('$\beta$', 'Interpreter', 'LaTeX')
             xlabel('$\chi = C_\mathrm{k} \cdot Q_\mathrm{k}/(G_\mathrm{k} + C_\mathrm{k} \cdot Q_\mathrm{k})$', 'Interpreter', 'LaTeX')
             
-            %   ht = title(['leading action:', num2str(lead_action_idx(ii))]);
-            ht = title(['leading action: ', lead_action{ii}]);
+            % ht = title(['leading action:', num2str(lead_action_idx(ii))]);
+            % ht = title(['leading action: ', lead_action{ii}]);
+            ht = title(title_text);
             ht.Interpreter = 'LaTeX';
             if ii == nn
                 %     legend_label = cellstr(num2str(Model.limit_state_idx(:)));
@@ -99,7 +112,7 @@ switch lower(group_by)
             end
             ylim([min_beta - 0.1*(max_beta-min_beta), max_beta + 0.1*(max_beta-min_beta)])
             xlim([min(khi), max(khi)])
-            set(gca,'XTick',0.1:0.1:0.9) % WARNING!
+            set(gca,'XTick', 0.1:0.1:0.9) % WARNING!
             
             set(gca,'TickLabelInterpreter', 'LaTeX')
         end

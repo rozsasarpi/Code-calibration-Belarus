@@ -1,6 +1,6 @@
 % Reliability-based calibration of partial factors
 %
-% Results = CALIBRATE(Model)
+% Results = CALIBRATE(Model, partial_f)
 %
 % partial_f       if given, only the objective function is evaluated, no calibration performed
 %                 this useful if multiple solutions are obtained and we would like to have all beta values or other paremeters for other then the selected minimum
@@ -79,11 +79,11 @@ else
 % fmincon - constrained
 options                     = optimoptions('fmincon');
 options.Algorithm           = 'sqp';
-options.Display             = 'iter';
+% options.Display             = 'iter';
 options.OptimalityTolerance = 1e-4;
 options.StepTolerance       = 1e-4;
 
-[partial_f, O]  = fmincon(@obj_fun, x0,[],[],[],[],lb,ub,[],options);
+% [partial_f, O]  = fmincon(@obj_fun, x0,[],[],[],[],lb,ub,[],options);
 
 %..........................................................................
 % fminsearch - unconstrained
@@ -96,17 +96,17 @@ options.StepTolerance       = 1e-4;
 
 %..........................................................................
 % Global Optimization Toolbox
-% problem = createOptimProblem('fmincon','objective',...
-%  @obj_fun,'x0',x0,'lb',lb,'ub',ub,'options',options);
+problem = createOptimProblem('fmincon','objective',...
+ @obj_fun,'x0',x0,'lb',lb,'ub',ub,'options',options);
 
 % GlobalSearch
 % % gs = GlobalSearch('Display', 'iter');
 % % [partial_f, O] = run(gs,problem);
 
 % MultiStart
-% ms = MultiStart('UseParallel',true,'Display','iter');
-% [partial_f, O, ~, ~, manymins] = run(ms,problem,50);
-% Results.manymins = manymins;
+ms = MultiStart('UseParallel',true,'Display','iter');
+[partial_f, O, ~, ~, manymins] = run(ms,problem,20);
+Results.manymins = manymins;
 
 end
 
@@ -162,6 +162,9 @@ end
                     %........................................................
                     % RELIABILITY ANALYSIS -> BETA
                     %........................................................
+                    if all([kk,jj,ii] == [6,1,1])
+%                        keyboard 
+                    end
                     beta                = form_wrapper(Probvar_o);
                     Beta(kk,jj,ii)      = beta;
                     %........................................................

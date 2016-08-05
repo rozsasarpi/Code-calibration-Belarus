@@ -187,21 +187,22 @@ end
 % snow
 S_1.mean            = 1.00;
 S_1.bias            = 1.00;
-S_1.cov             = 0.60;
+S_1.cov             = 0.55;
 
 % imposed action
 I_1.mean            = 1.00;
 I_1.bias            = 1.00;
-I_1.cov             = 0.20;
+I_1.cov             = 0.80;
 
 % wind action
 W_1.mean            = 1.00;
 W_1.bias            = 1.00;
-W_1.cov             = 0.60;
+W_1.cov             = 0.40;
 
 % permanent action
-G.cov               = 0.08;
-G.k2m               = 1/1.025;
+G.cov               = 0.085;
+G.k2m               = 1.00; %equivalent to 50% rule
+% G.k2m               = 1/1.025;
 
 %==========================================================================
 % COLLECT PARAMETERS

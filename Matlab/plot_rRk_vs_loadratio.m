@@ -9,8 +9,10 @@
 % (R_k2 - R_k1)./R_k1
 % assuming that basic inputs, dimensions are the same in Model1 and Model2
 
-function plot_rRk_vs_loadratio(Model, Results1, Results2)
+function plot_rRk_vs_loadratio(Model, Results1, Results2, Options)
 
+m1                  = Options.model1;
+m2                  = Options.model2;
 
 khi                 = Model.khi(:,1);
 R_k1                = Results1.R_k;
@@ -23,10 +25,10 @@ n_limit_state       = length(limit_state_idx);
 
 lead_action         = Model.lead_action_label;
 lead_action         = lead_action(lead_action_idx);
-limit_state         = Model.limit_state_label;
-limit_state         = limit_state(limit_state_idx);
+% limit_state         = Model.limit_state_label;
+% limit_state         = limit_state(limit_state_idx);
 
-rR_k                = (R_k2 - R_k1)./R_k1;    
+rR_k                = (R_k2 - R_k1)./R_k1;
 
 min_rR_k            = min(min(min(rR_k)));
 max_rR_k            = max(max(max(rR_k)));
@@ -48,10 +50,10 @@ switch lower(group_by)
             end
             plot(khi, zeros(size(khi)), '--black')
             
-            ylabel('$(R_\mathrm{k,distinct}-R_\mathrm{k,single})/R_\mathrm{k,single}$', 'Interpreter', 'LaTeX')
+            ylabel(['$(R_\mathrm{k,',m2,'}-R_\mathrm{k,',m1,'})/R_\mathrm{k,',m1,'}$'], 'Interpreter', 'LaTeX')
             xlabel('$\chi = C_\mathrm{k} \cdot Q_\mathrm{k}/(G_\mathrm{k} + C_\mathrm{k} \cdot Q_\mathrm{k})$', 'Interpreter', 'LaTeX')
 
-            ht = title(['limit state: ', limit_state{ii}]);
+            ht = title(Options.title_text);
             ht.Interpreter = 'LaTeX';
             if ii == n_limit_state
                 %     legend_label = cellstr(num2str(Model.limit_state_idx(:)));
