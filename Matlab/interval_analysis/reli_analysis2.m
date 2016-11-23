@@ -10,7 +10,7 @@
 % WARNING!
 % x(1)          Q   (cov) + 98% rule
 % x(2)          G   (cov) + 50% rule; G_k is determined by load ratio, khi
-% x(3)          R   (cov) + 5% rule; R_k is determined by partial factor-based design
+% x(3)          R   (cov) + 2% rule; R_k is determined by partial factor-based design
 % x(4:5)        K_R (k2m, cov)
 
 
@@ -82,13 +82,13 @@ end
 % .........................................................................
 % applied to t_ref reference period maxima
 Q_k                 = 1; % not interval! to have fixed khi, its value does not affect the outcomes (tested)
-Q_1_cov             = (1/Probvar.Q.cov - sqrt(6)/pi*log(t_ref))^(-1);
-Q_1_mean            = fzero(@(x) gumbelinvcdf(0.98, x, Q_1_cov*x, 'moments') - Q_k, Q_k);
-Q_1_std             = Q_1_cov*Q_1_mean;
+Q_t_cov             = (1/Probvar.Q.cov - sqrt(6)/pi*log(t_ref/Probvar.Q.t))^(-1);
+Q_t_mean            = fzero(@(x) gumbelinvcdf(Probvar.Q.P_rep, x, Q_t_cov*x, 'moments') - Q_k, Q_k);
+Q_t_std             = Q_t_cov*Q_t_mean;
 
-Probvar.Q.mean      = Q_1_mean + sqrt(6)/pi*log(t_ref)*Q_1_std;
-Probvar.Q.std       = Q_1_std/Probvar.Q.mean;
-Probvar.Q.std       = Q_1_std;
+Probvar.Q.mean      = Q_t_mean + sqrt(6)/pi*log(t_ref/Probvar.Q.t)*Q_t_std;
+Probvar.Q.cov       = Q_t_std/Probvar.Q.mean;
+Probvar.Q.std       = Q_t_std;
 Probvar.Q.char      = Q_k;
 
 C_Q_k               = Probvar.C_Q.char;
@@ -107,7 +107,7 @@ Probvar.K_R.std     = Probvar.K_R.mean*Probvar.K_R.cov;
 % .........................................................................
 R_k                 = (gamma_G*G_k + gamma_Q*C_Q_k*Q_k)*gamma_R;
 Probvar.R.char      = R_k;
-Probvar.R.mean      = fzero(@(x) (lognorminv(0.05, x, Probvar.R.cov) - R_k), R_k);
+Probvar.R.mean      = fzero(@(x) (lognorminv(0.02, x, Probvar.R.cov) - R_k), R_k);
 Probvar.R.std       = Probvar.R.mean*Probvar.R.cov;
 
 % .........................................................................

@@ -27,12 +27,19 @@ clc
 % OPTIONS & MODEL SPECIFICATION
 %==========================================================================
 Model.t_ref         = 50;
-Model.beta_target   = 2.3;
-Model.obj_fun_type  = 'asym';
+
+beta_target_50      = 3.8;
+% % beta_target_1       = norminv(normcdf(beta_target_50)^(1/50));
+% % beta_target_t_ref   = norminv(normcdf(beta_target_1)^(Model.t_ref));
+% % Model.beta_target   = beta_target_t_ref;
+Model.beta_target   = beta_target_50;
+
+% Model.beta_target   = 2.3;
+Model.obj_fun_type  = 'sym';
 Model.load_combi    = 'simple'; % only 'simple' is implemented yet
 Model.gamma_Q_type  = 'constant'; % for all variable actions!
 % Model.gamma_Q_type       = 'linear'; % for all variable actions!
-Model.gamma_Q_diff  = 'yes'; % differentiate between gamma_Q for each variable action?
+Model.gamma_Q_diff  = 'no'; % differentiate between gamma_Q for each variable action?
 
 % see model_spec.m for explanation of indexing
 Model.load_ratio_idx      = 1:9; % [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
@@ -42,6 +49,8 @@ Model.lead_action_idx     = 1:3; % [snow, imposed, wind]
 % Model.limit_state_label   = {'bending', 'shear', 'buckling'};
 Model.limit_state_label   = {'general'};
 
+Model.P_rep = [0.98, 0.995, 0.98]; % Eurocode
+% Model.P_rep = [0.95, 0.995, 0.80]; % SNiP
 %==========================================================================
 % Model specification & check
 %==========================================================================

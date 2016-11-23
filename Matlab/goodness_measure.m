@@ -1,5 +1,8 @@
 % Calculates various goodness measures for calibrated partial factors
 %
+%SYNOPSYS
+% GOODNESS_MEASURE(Model, Results)
+%
 % Model and Results are required as inputs although only these are used:
 % - beta_target
 % - objective_function

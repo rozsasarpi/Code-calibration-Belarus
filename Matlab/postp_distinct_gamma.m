@@ -4,12 +4,18 @@ clearvars
 close all
 clc
 
+% beta_target   = '2.3';
+beta_target   = '3.8';
+pf            = 2.0;
+pf_idx        = 1;
+
 obj_fun_type  = 'sym';
 gamma_Q_type  = 'constant'; % for all variable actions!
 
 %==========================================================================
 % COMPARE VARIABLE ACTION DIFFERENTIATED PARTIAL FACTOR, GAMMA_Q
 %==========================================================================
+
 %--------------------------------------------------------------------------
 % SINGLE GAMMA_Q 
 %--------------------------------------------------------------------------
@@ -19,10 +25,11 @@ gamma_Q_diff  = 'no';
 load(['results\obj_fun.',obj_fun_type,...
     '_gamma_Q_type.',gamma_Q_type,...
     '_gamma_Q_diff.',gamma_Q_diff,...
-    '_load_combi.simple_t_ref.50_beta_t.2.3_limit_state.1_lead_action.1  2  3.mat'])
+    '_load_combi.simple_t_ref.50_beta_t.',beta_target,...
+    '_limit_state.1_lead_action.1  2  3.mat'])
 
 Results     = filter_Results(Results);
-Results1    = select_Results(Model, Results, 0); % WARNING!
+Results1    = select_Results(Model, Results, pf_idx, pf); % WARNING!
 
 % khi = Model.khi;
 % Rk1 = 
@@ -50,10 +57,11 @@ gamma_Q_diff  = 'yes';
 load(['results\obj_fun.',obj_fun_type,...
     '_gamma_Q_type.',gamma_Q_type,...
     '_gamma_Q_diff.',gamma_Q_diff,...
-    '_load_combi.simple_t_ref.50_beta_t.2.3_limit_state.1_lead_action.1  2  3.mat'])
+    '_load_combi.simple_t_ref.50_beta_t.',beta_target,...
+    '_limit_state.1_lead_action.1  2  3.mat'])
 
 Results     = filter_Results(Results);
-Results2    = select_Results(Model, Results, 0); % WARNING!
+Results2    = select_Results(Model, Results, pf_idx, pf); % WARNING!
 
 goodness_measure(Model, Results2)
 
@@ -64,7 +72,8 @@ hf2         = gcf;
 ha2         = gca;
 ylim2       = get(ha2, 'Ylim');
 % ylimm       = [min(ylim1(1), ylim2(1)), max(ylim1(2), ylim2(2))];
-ylimm       = [1.97,    2.74];
+% ylimm       = [1.97,    2.74];
+ylimm       = str2double(beta_target)*[1-0.30,  1+0.40];
 set(ha1,'Ylim',ylimm)
 set(ha2,'Ylim',ylimm)
 

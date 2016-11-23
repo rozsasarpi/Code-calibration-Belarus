@@ -40,50 +40,59 @@ switch lower(lead_action{:})
         %..................................................................
         % Q, snow action, annual maxima
         % annual
-        Q_1.mean    = Model.S_1.mean;
-        Q_1.bias    = Model.S_1.bias;
-        Q_1.cov     = Model.S_1.cov;
-        Q_1.std     = Q_1.cov*Q_1.mean;
-        Q_1.dist    = 11;
+        Q_t.mean    = Model.S_1.mean;
+        Q_t.bias    = Model.S_1.bias;
+        Q_t.cov     = Model.S_1.cov;
+        Q_t.std     = Q_t.cov*Q_t.mean;
+        Q_t.dist    = 11;
+        Q_t.t       = 1;
+        Q_t.P_rep   = Model.S_1.P_rep;
         
     case {'i', 'imposed'}
         %..................................................................
-        % Q, imposed action, annual maxima
+        % Q, imposed action, 5-year maxima (should be renamed..)
         % annual
-        Q_1.mean    = Model.I_1.mean;
-        Q_1.bias    = Model.I_1.bias;
-        Q_1.cov     = Model.I_1.cov;
-        Q_1.std     = Q_1.cov*Q_1.mean;
-        Q_1.dist    = 11;
+        Q_t.mean    = Model.I_1.mean;
+        Q_t.bias    = Model.I_1.bias;
+        Q_t.cov     = Model.I_1.cov;
+        Q_t.std     = Q_t.cov*Q_t.mean;
+        Q_t.dist    = 11;
+        Q_t.t       = 5;
+        Q_t.P_rep   = Model.I_1.P_rep;
         
     case {'w', 'wind'}
         %..................................................................
         % W, wind action, annual maxima
         % annual
-        Q_1.mean    = Model.W_1.mean;
-        Q_1.bias    = Model.W_1.bias;
-        Q_1.cov     = Model.W_1.cov;
-        Q_1.std     = Q_1.cov*Q_1.mean;
-        Q_1.dist    = 11;        
+        Q_t.mean    = Model.W_1.mean;
+        Q_t.bias    = Model.W_1.bias;
+        Q_t.cov     = Model.W_1.cov;
+        Q_t.std     = Q_t.cov*Q_t.mean;
+        Q_t.dist    = 11;
+        Q_t.t       = 1;
+        Q_t.P_rep   = Model.W_1.P_rep;
         
     otherwise
         error(['Unknown leading action (lead_action): ', lead_action])
 end
 
 % get characteristic value & transform distribution from 1-year to t_ref reference period
-if Q_1.dist == 11
-    Probvar.Q       = Q_1;
+if Q_t.dist == 11
+    Probvar.Q       = Q_t;
     
     % get characteristic value
-    Probvar.Q.char  = gumbelinvcdf(0.98, Q_1.mean*Q_1.bias, Q_1.std, 'mom');
+    Probvar.Q.char  = gumbelinvcdf(Q_t.P_rep, Q_t.mean*Q_t.bias, Q_t.std, 'mom');
 %     Probvar.Q.k2m   = Q_1.mean/Probvar.Q.char;
     
     % transform from 1-year to t_ref reference period
-    Probvar.Q.mean  = Q_1.mean + sqrt(6)/pi*log(t_ref)*Q_1.std;
+    Probvar.Q.mean  = Q_t.mean + sqrt(6)/pi*log(t_ref/Q_t.t)*Q_t.std;
     Probvar.Q.cov   = Probvar.Q.std/Probvar.Q.mean;
 else
     error('Reference period conversion is only implemented for Gumbel distribution yet.')
 end
+
+Probvar.Q.t         = Q_t.t;
+Probvar.Q.P_rep     = Q_t.P_rep;
 
 %..........................................................................
 % C_Q, time-invariant component of variable action

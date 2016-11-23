@@ -52,7 +52,7 @@ lead_action_label   = {'snow', 'imposed', 'wind'};
 % limit state
 % apply for each load ratio and lead action!
                       %LS1      LS2     LS3
-R_cov               = [0.065,    0.07,   0.07];
+R_cov               = [0.065,   0.07,   0.07];
 R_bias              = [1.00,    1.00,   1.00];
 
 K_R_mean            = [1.00,    1.00,   1.00];
@@ -106,8 +106,8 @@ w_imp              =  [5,       5,      5;
                        5,       5,      5;
                        5,       5,      5];
 
-% n                   = length(khi);                  
-% w_wind              = repmat(100/n,size(w_imp)); %???
+% % n                   = length(khi);                  
+% % w_wind              = repmat(100/n,size(w_imp)); %???
 w_wind              = w_snow;
                    
 %..........................................................................
@@ -154,8 +154,8 @@ C_Q_cov             = tmp;
 C_Q_cov             = C_Q_cov(lead_action_idx);
 C_Q_cov             = repmat(C_Q_cov, n_load_ratio, n_limit_state, 1);
 
-khi              = khi(load_ratio_idx);
-khi              = repmat(khi, 1, n_limit_state, n_lead_action);
+khi                 = khi(load_ratio_idx);
+khi                 = repmat(khi, 1, n_limit_state, n_lead_action);
 
 w_snow              = w_snow(load_ratio_idx, limit_state_idx);
 
@@ -184,20 +184,23 @@ end
 % Z.mean              = 1;
 % Z.cov               = 0.02;
 
-% snow
+% snow - annual max
 S_1.mean            = 1.00;
 S_1.bias            = 1.00;
 S_1.cov             = 0.55;
+S_1.P_rep           = Model.P_rep(1);
 
-% imposed action
+% imposed action - 5-year max
 I_1.mean            = 1.00;
 I_1.bias            = 1.00;
-I_1.cov             = 0.80;
+I_1.cov             = 1.10;
+I_1.P_rep           = Model.P_rep(2);
 
-% wind action
+% wind action - annual max
 W_1.mean            = 1.00;
 W_1.bias            = 1.00;
 W_1.cov             = 0.40;
+W_1.P_rep           = Model.P_rep(3);
 
 % permanent action
 G.cov               = 0.085;

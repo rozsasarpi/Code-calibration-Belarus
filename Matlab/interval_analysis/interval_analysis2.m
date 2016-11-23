@@ -13,9 +13,9 @@
 %
 % simple_gfun(Q, C_Q, G, K_E, R, K_R)
 % WARNING!
-% x(1)          Q   (cov) + 98% rule
+% x(1)          Q   (cov) + 98% rule or 99.5% for imposed for EC (for SNiP different)
 % x(2)          G   (cov) + 50% rule; G_k is determined by load ratio, khi
-% x(3)          R   (cov) + 5% rule; R_k is determined by partial factor-based design
+% x(3)          R   (cov) + 2% rule; R_k is determined by partial factor-based design
 % x(4:5)        K_R (k2m, cov)
 %
 
@@ -40,7 +40,7 @@ jj      = 1;    % limit_state
 % for annual maxima!
 int_Q = [
     0.48,   0.62;       % Q_S  (cov)
-    0.80,   0.80;       % Q_I  (cov)
+    1.10,   1.10;       % Q_I  (cov)
     0.30,   0.50];      % Q_W  (cov)
 
 int_rest = [
@@ -73,23 +73,28 @@ n_lead_action   = length(Model.lead_action_idx);
 % % partial_f   = Results.partial_f;
 
 % with partial factors based on expert judgement
-partial_f = [1.50, 1.50, 1.30, 1.00, 1.20];
-Results = calibrate(Model, partial_f); % no calibration only calculates the betas at the given set of partial factors
+% partial_f       = [1.50, 1.50, 1.30, 1.05, 1.15];
+% partial_f       = [1.50, 1.05, 1.15];
+% partial_f       = [1.60, 1.50, 1.40, 1.15, 1.025];
+% partial_f       = [1.50, 1.20, 1.40, 1.15, 1.025];
+% partial_f       = [1.60, 1.30, 1.40, 1.15, 1.025];
+partial_f = [1.50, 1.00, 1.30, 1.05, 1.15];
+Results         = calibrate(Model, partial_f); % no calibration only calculates the betas at the given set of partial factors
 
 % #########################################################################
 
-t_ref       = Model.t_ref;
+t_ref           = Model.t_ref;
 
 %==========================================================================
 % INTERVAL ANALYSIS - brute force interval propagation by optimization
 %==========================================================================
 
-options     = optimoptions('fmincon','MaxFunEvals', 1e5, 'TolFun',1e-5, 'UseParallel',true);
+options         = optimoptions('fmincon','MaxFunEvals', 1e5, 'TolFun',1e-5, 'UseParallel',true);
 options.Algorithm   = 'active-set';
 % options.Display     = 'iter';
 
-beta_int    = nan(n_load_ratio, 2, n_lead_action);
-beta_mid    = nan(n_load_ratio, 1, n_lead_action);
+beta_int        = nan(n_load_ratio, 2, n_lead_action);
+beta_mid        = nan(n_load_ratio, 1, n_lead_action);
 
 % loop over leading actions
 for ii = 1:n_lead_action
@@ -106,7 +111,7 @@ for ii = 1:n_lead_action
     
         if Probvar.Q.dist == 11
             % change reference period; 1-year -> t_ref
-            int_Q_ii = (1./int_Q_ii + sqrt(6)/pi*log(t_ref)).^(-1);
+            int_Q_ii = (1./int_Q_ii + sqrt(6)/pi*log(t_ref/Probvar.Q.t)).^(-1);
         else
             error('Only Gumbel distribution is adopted for variable action yet.')
         end
@@ -174,7 +179,8 @@ for ii = 1:n_lead_action
     hold on
     plot(khi, bi, '-', 'Marker', lead_action_marker{ii},...
                     'MarkerFaceColor', [1,1,1],...
-                    'Color', cmp(ii,:))
+                    'Color', cmp(ii,:),...
+                    'MarkerSize', 4)
     plot(khi, bm, 'w--', 'Linewidth', 2)
     hf = plot(khi, repmat(bt, size(khi)), 'r--');
     if ii == n_lead_action
@@ -184,13 +190,13 @@ for ii = 1:n_lead_action
     end
     ht = title(lead_action_label{ii});
     ht.Interpreter = 'LaTeX';
-    ylim([0, max(max(bi))*1.05])
+    ylim([0, max(max(max(beta_int)))*1.05])
     xlim([0.1, 0.9])
     ylabel('$\beta$', 'Interpreter', 'LaTeX')
     xlabel('$\chi = C_\mathrm{k} \cdot Q_\mathrm{k}/(G_\mathrm{k} + C_\mathrm{k} \cdot Q_\mathrm{k})$', 'Interpreter', 'LaTeX')
     set(gca,'TickLabelInterpreter', 'LaTeX')
 end
 
-
+% save(['snip_', num2str(partial_f(1)), '.mat'], 'khi', 'beta_int', 'beta_mid', 'Model')
 
 % rmpath('D:\Working folder\Matlab working folder\Belarus_calibration\')

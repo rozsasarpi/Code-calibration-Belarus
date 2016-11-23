@@ -42,7 +42,7 @@ switch lower(load_combi)
 end
 % x0 = [max(0, R_k*(1 - 5*Probvar.R.cov)/R_bias), R_k*(1 + 5*Probvar.R.cov)*R_bias];
 x0 = R_k;
-R_m             = fzero(@(R_mean) (lognorminv(0.05, R_mean*R_bias, Probvar.R.cov) - R_k), x0);
+R_m             = fzero(@(R_mean) (lognorminv(0.02, R_mean*R_bias, Probvar.R.cov) - R_k), x0);
 % R_k2m           = R_m/R_k;
 
 Probvar.R.char  = R_k;

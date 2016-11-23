@@ -25,7 +25,7 @@ w               = Model.w;
 
 n_gamma_Q       = Model.n_gamma_Q;
 
-E_by_G          = (1./khi - 1).^(-1); % C_k*Q_k/G_k !!
+% E_by_G          = (1./khi - 1).^(-1); % C_k*Q_k/G_k !!
 
 n_load_ratio    = size(khi,1);
 n_limit_state   = size(khi,2);
@@ -38,14 +38,16 @@ switch lower(gamma_Q_type)
         x0                  = [repmat(1.5,1,n_gamma_Q),     1.1         1.2*ones(1,n_limit_state)];
         nvar                = length(x0);
         lb                  = 0.8*ones(nvar,1);
-        ub                  = 2.5*ones(nvar,1);
+        ub                  = 2.8*ones(nvar,1);
+        lb(1) = 2.0;
+        ub(1) = 2.0;
     case {'linear'}
         %                     %gamma_Q_a,   gamma_Q_b  gamma_G     gamma_R
-        x0                  = [1.2          0.02       1.1         1.2*ones(1,n_limit_state)];
+        x0                  = [1.5          0.2        1.1         1.2*ones(1,n_limit_state)];
         
         nvar                = length(x0);
         lb                  = 0.8*ones(nvar,1);
-        lb(2)               = -1;
+        lb(2)               = 0;
         ub                  = 2.5*ones(nvar,1);
         ub(2)               = 1;
     otherwise
@@ -105,6 +107,8 @@ problem = createOptimProblem('fmincon','objective',...
 
 % MultiStart
 ms = MultiStart('UseParallel',true,'Display','iter');
+% ms = MultiStart('UseParallel',true);
+% ms = MultiStart('Display','iter');
 [partial_f, O, ~, ~, manymins] = run(ms,problem,20);
 Results.manymins = manymins;
 
@@ -139,7 +143,8 @@ end
                         case {'linear'} % partial factor linearly dependent on load ratio    
                             gamma_Q_a           = x(1);
                             gamma_Q_b           = x(2);
-                            Design_o.gamma_Q    = gamma_Q_a + E_by_G(kk,jj,ii)*gamma_Q_b;
+%                             Design_o.gamma_Q    = gamma_Q_a + E_by_G(kk,jj,ii)*gamma_Q_b;
+                            Design_o.gamma_Q    = gamma_Q_a + khi(kk,jj,ii)*gamma_Q_b;
                             Design_o.gamma_G    = x(3);
                             Design_o.gamma_R    = x(3+jj); %WARNING! (different partial factor per failure mode)
                             Design_o.R_bias     = R_bias(kk,jj,ii);
@@ -190,7 +195,7 @@ obj_fun(partial_f); % to get the correct beta, minimal computational cost
 Results.beta        = Beta;
 Results.partial_f   = partial_f;
 Results.obj_fun_val = O;
-Results.R_k = R_k;
+Results.R_k         = R_k;
 % only the last is saved but still contains useful information
 Results.Probvar     = Probvar_o;
 
