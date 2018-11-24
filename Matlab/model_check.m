@@ -1,4 +1,4 @@
-% Some basic check of Model
+% Some basic checks of Model
 %
 %SYNOPSYS
 % Model = MODEL_CHECK(Model)
@@ -18,8 +18,6 @@ lead_action_idx = Model.lead_action_idx;
 limit_state_idx = Model.limit_state_idx;
 
 limit_state_label = Model.limit_state_label;
-
-
 
 %==========================================================================
 % CHECK
