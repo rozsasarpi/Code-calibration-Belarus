@@ -83,7 +83,7 @@ khi                 = [0.10;
 
 % weigths for objective function
 % apply for each lead action
-% [Ellingwood et al. (1980). A58. Table 5.2b steel] - overwritten yb Vitalij's suggestion!
+% [Ellingwood et al. (1980). A58. Table 5.2b steel] - overwritten by Vitalij's suggestion!
                       %LS1      LS2     LS3
 w_snow              = [5,       5,      5;
                        10,      10,     10;
@@ -95,16 +95,29 @@ w_snow              = [5,       5,      5;
                        15,      15,     15;
                        5,       5,      5];
 
-% [Ellingwood et al. (1980). A58. Table 5.2a steel] - overwritten yb Vitalij's suggestion!
-w_imp              =  [5,       5,      5;
-                       5,       5,      5;
-                       15,      15,     15;
-                       15,      15,     15;
-                       20,      20,     20;
-                       15,      15,     15;
-                       15,      15,     15;
-                       5,       5,      5;
-                       5,       5,      5];
+% [Ellingwood et al. (1980). A58. Table 5.2a steel] - overwritten by Vitalij's suggestion!
+% w_imp              =  [5,       5,      5;
+%                        5,       5,      5;
+%                        15,      15,     15;
+%                        15,      15,     15;
+%                        20,      20,     20;
+%                        15,      15,     15;
+%                        15,      15,     15;
+%                        5,       5,      5;
+%                        5,       5,      5];
+
+% Based on Barain, https://doi.org/10.1016/j.engstruct.2018.06.033
+vw_imp              =  [0;
+                        1.4;
+                        26.4;
+                        72.2;
+                        0;
+                        0;
+                        0;
+                        0;
+                        0];
+
+w_imp               = [vw_imp, vw_imp, vw_imp];
 
 % % n                   = length(khi);                  
 % % w_wind              = repmat(100/n,size(w_imp)); %???
