@@ -28,7 +28,8 @@ clc
 %==========================================================================
 Model.t_ref         = 50;
 
-beta_target_50      = 3.8;
+beta_target_50      = 2.3;
+% beta_target_50      = 3.8;
 % % beta_target_1       = norminv(normcdf(beta_target_50)^(1/50));
 % % beta_target_t_ref   = norminv(normcdf(beta_target_1)^(Model.t_ref));
 % % Model.beta_target   = beta_target_t_ref;
@@ -39,7 +40,7 @@ Model.obj_fun_type  = 'sym';
 Model.load_combi    = 'simple'; % only 'simple' is implemented yet
 Model.gamma_Q_type  = 'constant'; % for all variable actions!
 % Model.gamma_Q_type       = 'linear'; % for all variable actions!
-Model.gamma_Q_diff  = 'no'; % differentiate between gamma_Q for each variable action?
+Model.gamma_Q_diff  = 'yes'; % differentiate between gamma_Q for each variable action?
 
 % see model_spec.m for explanation of indexing
 Model.load_ratio_idx      = 1:9; % [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
@@ -68,8 +69,9 @@ Results             = calibrate(Model)
 % SAVE
 %==========================================================================û
 
+%     'obj_fun.', Model.obj_fun_type,...
 save(['results\',...
-    'obj_fun.', Model.obj_fun_type,...
+    'bairan_obj_fun.', Model.obj_fun_type,...
     '_gamma_Q_type.', Model.gamma_Q_type,...
     '_gamma_Q_diff.', Model.gamma_Q_diff,...
     '_load_combi.', Model.load_combi,...
