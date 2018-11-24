@@ -6,7 +6,7 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  DATA FIELDS IN 'PROBDATA'  %%
+% DATA FIELDS IN 'PROBDATA'  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Names of random variables. Default names are 'x1', 'x2', ..., if not explicitely defined.
@@ -35,7 +35,7 @@ probdata.Ro_method      = 1;
 probdata.flag_sens      = 0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  DATA FIELDS IN 'ANALYSISOPT'  %%
+% DATA FIELDS IN 'ANALYSISOPT'  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 analysisopt.echo_flag            = 0;
 
@@ -77,7 +77,7 @@ analysisopt.target_cov           = 0.01;   % Target coefficient of variation for
 analysisopt.lowRAM               = 0;        % 1: memory savings allowed, 0: no memory savings allowed
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  DATA FIELDS IN 'GFUNDATA' (one structure per gfun)  %%
+% DATA FIELDS IN 'GFUNDATA' (one structure per gfun)  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Type of limit-state function evaluator:
@@ -102,20 +102,20 @@ gfundata(1).flag_sens  = 1;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  DATA FIELDS IN 'FEMODEL'  %%
+% DATA FIELDS IN 'FEMODEL'  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 femodel = [];
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  DATA FIELDS IN 'RANDOMFIELD'  %%
+% DATA FIELDS IN 'RANDOMFIELD'  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 randomfield = [];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% FORM ANALYSIS %%
+% FORM ANALYSIS %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % This function updates probdata and gfundata before any analysis (must be run only once)
