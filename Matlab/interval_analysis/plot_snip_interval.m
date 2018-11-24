@@ -2,6 +2,10 @@ clearvars
 close all
 clc
 
+%==========================================================================
+% OPTIONS & CONTROL
+%==========================================================================
+
 load('snip_1.5.mat', 'khi', 'beta_int', 'beta_mid', 'Model')
 beta_int1 = beta_int;
 beta_mid1 = beta_mid;
@@ -10,12 +14,19 @@ load('snip_1.6.mat', 'khi', 'beta_int', 'beta_mid', 'Model')
 beta_int2 = beta_int;
 beta_mid2 = beta_mid;
 
-khi_split = 0.58;
-idx1 = 5;
-idx2 = 6;
+khi_split           = 0.58;
+idx1                = 5;
+idx2                = 6;
 
+% lead_action_idx     = [1, 2, 3];
+lead_action_idx     = [1, 2];
 
-lead_action_idx     = [1, 2, 3];
+save_fig            = 1;
+
+%==========================================================================
+% VISUALIZE
+%==========================================================================
+
 n_lead_action       = length(lead_action_idx);
 
 cmp                 = get(groot,'defaultAxesColorOrder');
@@ -99,3 +110,17 @@ for ii = 1:n_lead_action
     set(gca,'TickLabelInterpreter', 'LaTeX')
 end
 
+prettify(gcf)
+
+%==========================================================================
+% SAVE
+%==========================================================================
+
+if save_fig == 1
+    fwidth = 11*n_lead_action;
+    fheight = 8;
+    fpath   = ['./figures/beta_vs_ratio_lead_action.',num2str(lead_action_idx)];
+    figuresize(fwidth , fheight , 'cm')
+    export_fig(fpath, '-png', '-m2.5')
+    %export_fig(fpath, '-pdf', '-m2.5')
+end
