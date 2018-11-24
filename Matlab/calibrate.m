@@ -39,8 +39,8 @@ switch lower(gamma_Q_type)
         nvar                = length(x0);
         lb                  = 0.8*ones(nvar,1);
         ub                  = 2.8*ones(nvar,1);
-        lb(1) = 2.0;
-        ub(1) = 2.0;
+%         lb(1) = 2.0;
+%         ub(1) = 2.0;
     case {'linear'}
         %                     %gamma_Q_a,   gamma_Q_b  gamma_G     gamma_R
         x0                  = [1.5          0.2        1.1         1.2*ones(1,n_limit_state)];
@@ -109,7 +109,7 @@ problem = createOptimProblem('fmincon','objective',...
 ms = MultiStart('UseParallel',true,'Display','iter');
 % ms = MultiStart('UseParallel',true);
 % ms = MultiStart('Display','iter');
-[partial_f, O, ~, ~, manymins] = run(ms,problem,20);
+[partial_f, O, ~, ~, manymins] = run(ms,problem,100);
 Results.manymins = manymins;
 
 end
