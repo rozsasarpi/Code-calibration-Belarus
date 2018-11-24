@@ -4,12 +4,19 @@
 % PLOT_MULTISOLU_GAMMA(Model, Results)
 %
 
-function plot_multisolu_gamma(Model, Results)
+function plot_multisolu_gamma(Model, Results, pf, pf_idx)
 % close all
 
-pf          = 1.5;
-% pf          = 2.0;
-pf_idx      = 1;
+if nargin < 4
+   pf_idx = 1.5; 
+end
+if nargin < 3
+   pf = 1.5; 
+end
+% 
+% pf          = 1.5;
+% % pf          = 2.0;
+% pf_idx      = 1;
 
 %==========================================================================
 % PRE-PROCESSING
@@ -102,9 +109,11 @@ L           = repmat(left_marg+(cc-1)*W+(cc-1)*gap_h, n_row, 1);
 B           = repmat(bot_marg+(rr-1)*H+(rr-1)*gap_v, 1, n_col);
 
 
-figure('Position', [100, 300, (n_col)*200, 200])
-ymin = min(min(PF))-0.1;
-ymax = max(max(PF))+0.1;
+figure('Position', [100, 300, (n_col)*150, 150])
+% ymin = min(min(PF))-0.1;
+% ymax = max(max(PF))+0.1;
+ymin = 0.8; % WARNING!
+ymax = 2.8;
 
 for ii = 1:n_col
     subplot('Position', [L(ii), B(ii), W, H]);
