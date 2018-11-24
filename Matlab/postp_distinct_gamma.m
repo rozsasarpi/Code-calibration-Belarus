@@ -4,8 +4,8 @@ clearvars
 close all
 clc
 
-% beta_target   = '2.3';
-beta_target   = '3.8';
+beta_target   = '2.3';
+% beta_target   = '3.8';
 pf            = 2.0;
 pf_idx        = 1;
 
@@ -99,5 +99,31 @@ Options.model2     = 'distinct';
 
 plot_rRk_vs_loadratio(Model, Results1, Results2, Options)
 
+hf3         = gcf;
 % ylim([-0.005    0.025])
+
+%--------------------------------------------------------------------------
+% SAVE
+%--------------------------------------------------------------------------
+save_fig = 1;
+
+if save_fig == 1
+    figure(hf2)
+    prettify(gcf)
+    ID = 'Figure_3';
+    fwidth = 10;
+    fheight = 8;
+    fpath = ['./figures/',ID];
+    figuresize(fwidth , fheight , 'cm')
+    export_fig(fpath, '-png', '-m3.5')
+    
+    figure(hf3)
+    prettify(gcf)
+    ID = 'Figure_4';
+    fwidth = 10;
+    fheight = 8;
+    fpath = ['./figures/',ID];
+    figuresize(fwidth , fheight , 'cm')
+    export_fig(fpath, '-png', '-m3.5')
+end
 
