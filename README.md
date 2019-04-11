@@ -17,8 +17,9 @@ __Calibration:__
 * Belarus
 
 __Code(s):__ Matlab
-<img src = Matlab/figures/compare_distinct_gamma_Q/sym_constant_single.png width = "400")>
-<img src = Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct.png width = "400")>
+
+<img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_single.png" width = "400" />
+<img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct.png" width = "400" />
 
 __Note(s):__ 
 * The codes are not cleaned organized in any serious way (yet?). If you have troubles to follow it, contact me.
