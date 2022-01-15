@@ -23,12 +23,13 @@ To perform a calibration run `Matlab/main.m`.
 <img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_single.png" width = "400" />
 <img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct.png" width = "400" />
 
-__Note(s):__ 
+:warning: __Note(s):__ 
 * The codes are not cleaned organized in any serious way (yet?). If you have troubles to follow it, contact me.
 * It might happen that that not everything is included to run the codes without error. Drop me an email in this case and I will look after it.
-* Required programs and scripts:
+* __Required programs and scripts__:
 	* [custom statistical functions](https://github.com/rozsasarpi/Statistics---Matlab)
-	* [FERUM](http://www.ifma.fr/FERUM)
+	* [FERUM](http://www.ifma.fr/FERUM) for the reliability analyses
+	* [custom plotting functions](https://github.com/rozsasarpi/Plotting-Matlab)
 
 
   
