@@ -1,9 +1,14 @@
 Reliability-based code calibration
 ==============
 
-In progress research codes... for collaborative coding, open and reproducible research.
+Programming code snippets for collaborative coding, open, and reproducible research.
 
-After the work has been completed the code will be organized(?) and accompanied with a report or paper.
+Accompanying paper:
+Nadolski, V., Rózsás, Á., Sýkora, M. "Calibrating Partial Factors – Methodology, Input Data and Case Study of Steel Structures", Periodica Polytechnica Civil Engineering, 63(1), pp. 222–242, 2019. https://doi.org/10.3311/PPci.12822
+[Download](https://pp.bme.hu/ci/article/download/12822/8234/)
+
+
+For more information contact us.
 
 __Calibration:__
 * Eurocode
@@ -13,8 +18,8 @@ __Calibration:__
 
 __Code(s):__ Matlab
 
-<img src = Matlab/figures/compare_distinct_gamma_Q/sym_constant_single_original.png width = "400")>
-<img src = Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct_original.png width = "400")>
+<img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_single.png" width = "400" />
+<img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct.png" width = "400" />
 
 __Note(s):__ 
 * The codes are not cleaned organized in any serious way (yet?). If you have troubles to follow it, contact me.
