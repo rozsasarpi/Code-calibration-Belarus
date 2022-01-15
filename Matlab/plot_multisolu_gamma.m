@@ -8,7 +8,7 @@ function plot_multisolu_gamma(Model, Results, pf, pf_idx)
 % close all
 
 if nargin < 4
-   pf_idx = 1.5; 
+   pf_idx = 1; 
 end
 if nargin < 3
    pf = 1.5; 
