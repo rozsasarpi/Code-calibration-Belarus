@@ -18,6 +18,8 @@ __Calibration:__
 
 __Code(s):__ Matlab
 
+To perform a calibration run `Matlab/main.m`.
+
 <img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_single.png" width = "400" />
 <img src = "Matlab/figures/compare_distinct_gamma_Q/sym_constant_distinct.png" width = "400" />
 

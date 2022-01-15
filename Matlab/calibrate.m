@@ -114,6 +114,10 @@ Results.manymins = manymins;
 
 end
 
+Beta = nan(n_load_ratio, n_limit_state, n_lead_action);
+R_k = Beta;
+Probvar_o = NaN;
+
     function O = obj_fun(x)
         
         %..................................................................
@@ -121,8 +125,7 @@ end
         %..................................................................
         
         O                   = 0;
-        Beta                = nan(n_load_ratio, n_limit_state, n_lead_action);
-        R_k                 = Beta;
+        
         % loop over leading actions
         for ii = 1:n_lead_action
             
